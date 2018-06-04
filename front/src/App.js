@@ -58,15 +58,17 @@ class App extends Component {
     drawImage = (eventArray) => {
         console.log(eventArray)
         const context = this.canvas.getContext('2d');
+
         eventArray.forEach(one => {
-            const imageData = context.createImageData(1, 1);
-            const d = imageData.data;
-            d[0] = one.rgb.r;
-            d[1] = one.rgb.g;
-            d[2] = one.rgb.b;
-            d[3] = 255;
+
+
+            const color = `rgba(${one.rgb.r},${one.rgb.g},${one.rgb.b},255)`
             one.pixelArray.forEach(pixel => {
-                context.putImageData(imageData, pixel.x, pixel.y);
+                context.fillStyle = color;
+                    context.beginPath();
+                context.arc(pixel.x, pixel.y, 10, 0, 2 * Math.PI);
+                context.stroke();
+                context.fill();
             })
 
         });
